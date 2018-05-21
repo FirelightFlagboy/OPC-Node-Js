@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<style>
+		body {
+			background-color: #eee;
+			font-family: Helvetica;
+			display: grid;
+			grid-template-areas:
+		}
+		#chat {
+			max-height: 200px;
+			overflow: scroll;
+		}
+		#chat p {
+			color: black;
+			font-style: italic;
+		}
+		#chat section {
+			background-color: white;
+			margin: 5px;
+			padding-left: 10px;
+		}
+		#chat section h3 {
+			padding-top: 10px;
+			color: #3e89cf;
+		}
+		#chat section p {
+			padding-bottom: 10px;
+		}
+		form {
+			position: fixed;
+			bottom: 0px;
+			background-color: rgb(233, 207, 121);
+			width: 100%;
+			text-align: center;
+			height: 50px;
+			padding: 50px;
+		}
+	</style>
+	<title>super Chat</title>
+</head>
+
+<body>
+	<h1>Le super chat temp réel</h1>
+
+	<section id="chat">
+	</section>
+
+	<section>
+		<form>
+			<input type="text" name="msg" id="msg" placeholder="Votre Message ..." required>
+			<input type="submit" value="Send">
+		</form>
+	</section>
+
+
+	<script src='/socket.io/socket.io.js'></script>
+	<script>
+		var pseudo = prompt('Votre pseudo :');
+		var form = document.querySelector('form');
+		var chat = document.getElementById('chat');
+		var socket = io.connect('http://127.0.0.1:8080');
+
+		function new_msg(author, content)
+		{
+			let section = document.createElement('section');
+			let h3 = document.createElement('h3');
+			let p = document.createElement('p');
+
+			h3.textContent = author;
+			p.textContent = content;
+
+			section.appendChild(h3);
+			section.appendChild(p);
+			chat.appendChild(section);
+		}
+
+		socket.emit('pseudo', pseudo);
+
+		socket.on('new_msg', (author, content) => {
+			new_msg(author, content);
+		})
+		.on('new_client', (client) => {
+			let p = document.createElement('p');
+			p.textContent = client + ' vient de ce connecter !';
+			chat.appendChild(p);
+		});
+
+		let p = document.createElement('p');
+		p.textContent = pseudo + ' vient de ce connecter !';
+		chat.appendChild(p);
+
+		form.addEventListener('submit', (e) => {
+			socket.emit('new_msg', form.msg.value);
+			new_msg(pseudo, form.msg.value);
+			form.reset();
+			e.preventDefault();
+		});
+	</script>
+</body>
+
+</html>

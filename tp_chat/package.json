@@ -1,0 +1,11 @@
+{
+	"name": "wireless-chat",
+	"version": "0.1.0",
+	"dependencies": {
+		"socket.io": "~1.0",
+		"express": "~4.11.0",
+		"ent": "~1.0"
+	},
+	"author": "fbenneto <fbenneto@student.42.fr>",
+	"description": "tp chat"
+}

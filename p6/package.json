@@ -1,0 +1,9 @@
+{
+	"name": "p6-mooc",
+	"version": "0.1.0",
+	"dependencies": {
+		"socket.io": "~1.0"
+	},
+	"author": "fbenneto fbenneto@student.42.fr",
+	"description": "chapitre 6 du mooc opc node js"
+}
