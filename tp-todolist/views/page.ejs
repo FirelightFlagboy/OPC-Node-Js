@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<style>
+		a {
+			text-decoration: none;
+			color: black;
+		}
+	</style>
+	<title>ma Todolist</title>
+</head>
+
+<body>
+	<h1>Ma Todolist</h1>
+
+	<ul>
+		<!-- TODO {% endcomment %} -->
+		<%
+		for (let i = 0; i < todolist.length; i++) {
+			%>
+			<li>
+				<a href="/todo/del/<%= i%>">X</a>
+				<%= todolist[i]%>
+			</li>
+			<%}%>
+	</ul>
+
+	<form action="/todo/add" method="post">
+		<label for="todo">Que dois-je faire ? </label>
+		<input type="text" name="todo" id="todo">
+		<input type="reset" value="reset">
+		<input type="submit" value="submit">
+	</form>
+</body>
+
+</html>
