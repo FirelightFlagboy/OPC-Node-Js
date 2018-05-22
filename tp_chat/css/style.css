@@ -1,0 +1,41 @@
+body {
+	background-color: #eee;
+	font-family: Helvetica;
+	display: grid;
+	grid-gap: 10px;
+	height: 100%;
+	grid-template-columns:1fr;
+	grid-template-areas:
+			  "nav"
+			  "main"
+			  "footer";
+	grid-template-rows: 10% 80% 10%;
+}
+#chat {
+	grid-area: "main";
+	max-height: 80vh;
+	overflow: scroll;
+}
+#chat p {
+	color: black;
+	font-style: italic;
+}
+#chat section {
+	background-color: white;
+	margin: 5px;
+	padding-left: 10px;
+}
+#chat section h3 {
+	padding-top: 10px;
+	color: #3e89cf;
+}
+#chat section p {
+	padding-bottom: 10px;
+}
+form {
+	grid-area: footer;
+	text-align: center;
+}
+h1 {
+	grid-area: nav;
+}
