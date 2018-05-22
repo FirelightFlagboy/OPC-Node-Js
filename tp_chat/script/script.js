@@ -11,8 +11,7 @@ var chat = document.getElementById('chat');
 var socket = io.connect('http://10.11.4.11:8080');
 
 // create a new section for msg
-function new_msg(author, content)
-{
+function new_msg(author, content) {
 	let section = document.createElement('section');
 	let h3 = document.createElement('h3');
 	let p = document.createElement('p');
@@ -26,8 +25,7 @@ function new_msg(author, content)
 }
 
 // scroll to the bottom of the page
-function scroll_botom()
-{
+function scroll_botom() {
 	chat.scrollTop = chat.scrollHeight - chat.clientHeight;
 }
 
@@ -36,15 +34,15 @@ socket.emit('pseudo', pseudo);
 
 // display new msg from server
 socket.on('new_msg', (author, content) => {
-	new_msg(author, content);
-	scroll_botom();
-})
-// display name of new client
-.on('new_client', (client) => {
-	let p = document.createElement('p');
-	p.textContent = client + ' vient de se connecter !';
-	chat.appendChild(p);
-});
+		new_msg(author, content);
+		scroll_botom();
+	})
+	// display name of new client
+	.on('new_client', (client) => {
+		let p = document.createElement('p');
+		p.textContent = client + ' vient de se connecter !';
+		chat.appendChild(p);
+	});
 
 let p = document.createElement('p');
 p.textContent = pseudo + ' vient de se connecter !';
@@ -52,9 +50,13 @@ chat.appendChild(p);
 
 // send message to the server
 form.addEventListener('submit', (e) => {
-	socket.emit('new_msg', form.msg.value);
-	new_msg(pseudo, form.msg.value);
-	scroll_botom();
+	if (form.msg.value.length >= 256)
+		alert('message too big');
+	else {
+		socket.emit('new_msg', form.msg.value);
+		new_msg(pseudo, form.msg.value);
+		scroll_botom();
+	}
 	form.reset();
 	e.preventDefault();
 });
