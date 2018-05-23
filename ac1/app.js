@@ -53,7 +53,7 @@ io.sockets.on('connection', (socket) => {
 		index = todolist.indexOf(key);
 		if (index != -1)
 		{
-			console.log('client ' + socket.name + ' remove : ' + index + ' ' + todolist[index]);
+			console.log('client ' + socket.name + ' remove : ' + key);
 			// remove the element
 			todolist.splice(index, 1);
 			// send new list to all other client
