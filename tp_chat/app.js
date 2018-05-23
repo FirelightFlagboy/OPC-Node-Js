@@ -13,19 +13,19 @@ app.get('/', (req, res) => {
 	fs.readFile('./css/style.css', 'utf-8', (err, data) => {
 		res.writeHead(200, {'Content-Type': 'text/css'});
 		res.end(data);
-	})
+	});
 })
 .get('/script/script.js', (req, res) => {
 	fs.readFile('./script/script.js', 'utf-8', (err, data) => {
 		res.writeHead(200, {'Content-Type': 'application/javascript'});
 		res.end(data);
-	})
+	});
 })
 .use(function(req, res, next){
 	fs.readFile('./notfound.html', 'utf-8', (err, data) => {
 		res.writeHead(404, {'Content-Type': 'text/html'});
 		res.end(data);
-	})
+	});
 });
 
 var server = require('http').createServer(app);
